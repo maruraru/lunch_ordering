@@ -1,3 +1,8 @@
+deploy:
+  provider: heroku
+  app: 'lunchorderingsaas'
+  api_key:
+    secure: '395b988b-aac0-47fc-88ad-0b8544b6aefb'
 language: ruby
 rvm:
   - 2.6.3
