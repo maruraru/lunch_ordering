@@ -66,4 +66,6 @@ end
 
 gem 'travis'
 
-gem 'devise', '~> 4.6'
+gem 'devise'
+gem 'jquery-rails'
+gem 'twitter-bootstrap-rails'
