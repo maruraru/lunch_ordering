@@ -1,0 +1,27 @@
+<h1>All registered users</h1>
+<table class="table table-sm">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">User name</th>
+      <th scope="col">User email</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @users %>
+    <% @users.each do |user| %>
+      <tr>
+        <th>
+          <%= user.user_name %>
+        </th>
+        <th>
+          <%= user.email %>
+        </th>
+        <th>
+          <%= link_to 'Show profile page', show_user_path(user.id)%>
+        </th>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
