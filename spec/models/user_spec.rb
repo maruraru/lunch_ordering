@@ -56,7 +56,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'is not valid with password length > 128' do
-      test_user.password = Faker::Internet.password(128, 130)
+      test_user.password = Faker::Internet.password(129, 140)
       test_user.password_confirmation = test_user.password
       expect(test_user).to_not be_valid
     end

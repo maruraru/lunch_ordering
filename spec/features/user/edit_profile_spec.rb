@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UserEditProfile', type: :feature do
+RSpec.describe 'User profile edit', type: :feature do
   let(:user1) { FactoryBot.create(:user) }
 
   context 'when all fields are correct' do

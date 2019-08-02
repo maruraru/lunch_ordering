@@ -22,7 +22,7 @@
             <% if current_user.is_admin %>
               <p class="navbar-text">Admin section: </p>
               <li class="nav-item">
-                <a href="#">All users</a>
+                <%= link_to 'All users', all_users_path%>
               </li>
             <% end %>
           <% end %>
@@ -30,7 +30,7 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to current_user.user_name, edit_user_registration_path%>
+              <%= link_to current_user.user_name, show_user_path(current_user.id)%>
             </li>
             <li class="nav-item">
               <%= link_to 'Sign out', destroy_user_session_path, :method => :delete, class: 'nav-link'  %>
