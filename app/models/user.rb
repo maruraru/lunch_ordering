@@ -6,8 +6,8 @@ class User < ApplicationRecord
   before_save :check_to_make_admin
 
   validates :user_name, presence: true, length: { maximum: 50 }
-  validates :email, presence: true, length: { maximum: 50 }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
+                    presence: true, length: { maximum: 50 }
 
   private
 
