@@ -1,0 +1,57 @@
+<head>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $(window).keydown(function(event){
+              if(event.keyCode === 13) {
+                  event.preventDefault();
+                  return false;
+              }
+          });
+      });
+  </script>
+</head>
+<h1>Today's menu</h1>
+<table class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Category</th>
+    <th scope="col">Price</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @day_menu.menu_items %>
+    <% @day_menu.menu_items.each do |menu_item| %>
+      <tr>
+        <th>
+          <%= menu_item.name %>
+        </th>
+        <th>
+          <%= menu_item.category %>
+        </th>
+        <th>
+          <%= menu_item.price %>
+        </th>
+        <th>
+          <%= link_to 'Remove', delete_menu_item_path(menu_item.id), method: :delete %>
+        </th>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<h3>Search among recent menu items:</h3>
+<%= form_for @existed_menu_items.empty? ? @day_menu.menu_items.build : @existed_menu_items, url: autocomplete_menu_item_name_path  do |f| %>
+  <%= f.autocomplete_field :name, autocomplete_menu_item_name_path, 'data-showNoMatches' => false,
+                           update_elements: { name: '#menu_item_new_name', category: '#menu_item_category',
+                                              id: '#menu_item_id', price: '#menu_item_price'}%>
+<% end %>
+<h3>Or create new one:</h3>
+<%= simple_form_for([@day_menu, @day_menu.menu_items.build],  url: create_menu_item_path, method: :post,
+                    html: { class: 'form' }) do |f| %>
+  <%= f.input :name, input_html: {id: "menu_item_new_name"} %>
+  <%= f.input :category, collection: %w(first main drink) %>
+  <%= f.input :price %>
+  <%= f.button :submit, 'Add menu item' %>
+<% end %>

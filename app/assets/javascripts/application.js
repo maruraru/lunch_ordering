@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/widgets/autocomplete
+//= require autocomplete-rails
 //= require twitter/bootstrap
-//= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .

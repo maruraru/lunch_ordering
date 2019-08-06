@@ -24,6 +24,12 @@
               <li class="nav-item">
                 <%= link_to 'All users', all_users_path%>
               </li>
+              <li class="nav-item">
+                <%= link_to 'Days', all_days_path%>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Today's menu editing", current_menu_path%>
+              </li>
             <% end %>
           <% end %>
         </ul>
@@ -39,6 +45,8 @@
         </ul>
       </div>
     </div>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -71,4 +71,8 @@ gem 'travis'
 
 gem 'devise'
 gem 'jquery-rails'
+gem 'rails-jquery-autocomplete'
+gem 'jquery-ui-rails'
 gem 'twitter-bootstrap-rails'
+gem 'simple_form'
+

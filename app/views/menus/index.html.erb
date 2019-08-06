@@ -1,0 +1,27 @@
+<h1>All days</h1>
+<table class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Day of week</th>
+    <th scope="col">Data</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @all_days %>
+    <% @all_days.each do |day| %>
+      <tr>
+        <th>
+          <%= day.date.strftime('%A') %>
+        </th>
+        <th>
+          <%= day.date.strftime("%d %b %Y") %>
+        </th>
+        <th>
+          <%= link_to 'Open day page', show_menu_path(day.id) %>
+        </th>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
