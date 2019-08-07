@@ -2,6 +2,8 @@ class MenuItem < ApplicationRecord
   has_many :user_lunches, foreign_key: 'dish_id'
   belongs_to :menu
 
+  mount_uploader :photo, ImageUploader
+
   CATEGORIES = %w[first_dish main_dish drink].freeze
   
   validates :name, presence: true, length: { maximum: 100 }

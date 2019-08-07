@@ -5,20 +5,32 @@
       <%= day_menu.date.strftime("%A, %d %b %Y") %>
     </h2>
     <% if courses %>
-      <% if day_menu.date == Date.today %>
-        <%= link_to 'Make order for today', new_user_lunch_path %>
-      <% end %>
-      <% courses.each do |course_name, course| %>
-        <h3>
-          <%= course_name.to_s.capitalize + ':' %>
-        </h3>
-        <% course.each do |dish| %>
-          <p>
-            <%= dish.name %>
-            <%= dish.price %>
-          </p>
+      <div class="col-md-12">
+        <% if day_menu.date == Date.today %>
+          <%= link_to 'Make order for today', new_user_lunch_path %>
         <% end %>
-      <% end %>
+        <% courses.each do |course_name, course| %>
+          <h3>
+            <%= course_name.humanize + ':' %>
+          </h3>
+          <div class="col-md-12">
+            <div class="row">
+              <% course.each do |dish| %>
+                <div class="col-md-3">
+                  <div>
+                    <%= dish.name + ', ' %>
+                    <%= dish.price.to_s + ' $' %>
+                  </div>
+                  <div>
+                    <%= image_tag(dish.photo.thumb.url, alt: dish.name) if dish.photo? %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <hr>
+          </div>
+        <% end %>
+      </div>
     <% else %>
       <p>
         This day's menu is empty. Perhaps the administrator will add several dishes here later.

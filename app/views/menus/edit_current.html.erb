@@ -23,6 +23,7 @@
   <%= f.input :name, input_html: {id: "menu_item_new_name"} %>
   <%= f.input :category, collection: @dish_categories %>
   <%= f.input :price %>
+  <%= f.input :photo %>
   <%= f.button :submit, 'Add menu item' %>
 <% end %>
 <h1>Today's menu</h1>

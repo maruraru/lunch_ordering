@@ -75,4 +75,5 @@ gem 'rails-jquery-autocomplete'
 gem 'jquery-ui-rails'
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
-
+gem 'carrierwave', '>= 2.0.0.rc', '< 3.0'
+gem 'mini_magick'
