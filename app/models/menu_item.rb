@@ -1,5 +1,5 @@
 class MenuItem < ApplicationRecord
-  has_many :user_lunches
+  has_many :user_lunches, foreign_key: 'dish_id'
   belongs_to :menu
 
   CATEGORIES = %w[first_dish main_dish drink].freeze

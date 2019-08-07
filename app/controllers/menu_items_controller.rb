@@ -9,7 +9,7 @@ class MenuItemsController < ApplicationController
     @menu_item = @menu.menu_items.build(menu_item_params)
     if @menu_item.save
       flash.now.notice = 'Saved'
-      redirect_to current_menu_path
+      redirect_to current_menu_path, notice: 'Saved'
     else
       @day_menu = Menu.today_menu
       @existed_menu_items = MenuItem.recent_items

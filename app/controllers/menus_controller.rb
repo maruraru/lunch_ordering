@@ -24,7 +24,10 @@ class MenusController < ApplicationController
   end
 
   def show
-
+    @menu = Menu.find(params[:id])
+    @dishes_hash = @menu.day_menu_dishes_hash
+    @user_lunches = @menu.day_lunches
+    @day_earnings = @menu.day_earnings
   end
 
 end

@@ -16,24 +16,27 @@ class Menu < ApplicationRecord
     menus
   end
 
+  def day_lunches
+    sql = "Select users.user_name, menu_items.name, menu_items.category, menu_items.price
+                  FROM (select user_id, dish_id, created_at FROM user_lunches WHERE created_at::date = '#{date}') as first
+                  JOIN (select id, user_name from users) as users ON first.user_id = users.id
+                  JOIN (select id, name, price, category from menu_items) as menu_items ON first.dish_id = menu_items.id
+                  ORDER BY first.created_at"
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def day_earnings
+    sql = "Select SUM(menu_items.price) as total FROM (SELECT dish_id FROM user_lunches WHERE created_at::date = '#{date}') as lunches
+                  JOIN (select id, price FROM menu_items) as menu_items ON lunches.dish_id = menu_items.id"
+    ActiveRecord::Base.connection.execute(sql)[0]['total']
+  end
+
   def self.all_days
     Menu.select(:id, :date).reverse
   end
 
   def self.last_days(number = 5)
     Menu.order(date: :asc).limit(number).reverse
-  end
-
-  def self.day_menu(selected_day)
-    Menu.find(date: selected_day).first.menu_items
-  end
-
-  def self.day_lunches(selected_day)
-    lunches = []
-    day_menu(selected_day).each do |menu_item|
-      lunches << menu_item.user_lunches
-    end
-    lunches
   end
 
   def self.today_menu

@@ -36,14 +36,10 @@ ActiveRecord::Schema.define(version: 2019_08_05_073401) do
 
   create_table "user_lunches", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "first_dish_id", null: false
-    t.bigint "main_dish_id", null: false
-    t.bigint "drink_id", null: false
+    t.bigint "dish_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["drink_id"], name: "index_user_lunches_on_drink_id"
-    t.index ["first_dish_id"], name: "index_user_lunches_on_first_dish_id"
-    t.index ["main_dish_id"], name: "index_user_lunches_on_main_dish_id"
+    t.index ["dish_id"], name: "index_user_lunches_on_dish_id"
     t.index ["user_id"], name: "index_user_lunches_on_user_id"
   end
 
