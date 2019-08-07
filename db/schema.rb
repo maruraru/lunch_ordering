@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_073401) do
   create_table "menu_items", force: :cascade do |t|
     t.string "name", null: false
     t.string "category", null: false
-    t.float "price", null: false
+    t.decimal "price", precision: 20, scale: 2, null: false
     t.string "photo"
     t.bigint "menu_id"
     t.datetime "created_at", null: false

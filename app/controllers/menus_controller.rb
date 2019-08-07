@@ -1,4 +1,5 @@
 class MenusController < ApplicationController
+  before_action :admin_only!
 
   def index
     @all_days = Menu.all_days
@@ -6,30 +7,24 @@ class MenusController < ApplicationController
 
   def edit_current
     @day_menu = Menu.today_menu
+    @menu_item = @day_menu.menu_items.build
     @existed_menu_items = MenuItem.recent_items
-  end
-
-  def new
-    @menu = Menu.new
+    @dish_categories = MenuItem::CATEGORIES
   end
 
   def create
     menu = Menu.new(date: Date.today)
     if menu.save
-      redirect_to current_menu_path, notice: 'Saved'
+      flash.now.notice = "Today's menu created successfully"
+      redirect_to current_menu_path
     else
-      redirect_to '/', notice: 'Creation failed'
+      flash.now.alert = 'Creation failed'
+      redirect_to '/'
     end
   end
 
   def show
 
-  end
-
-  private
-
-  def menu_params
-    params.require(:menu).permit(menu_items_attributes: [:name, :category, :photo, :price])
   end
 
 end

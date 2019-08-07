@@ -17,7 +17,10 @@
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <li class="nav-item">
-              <a href="/">Dashboard</a>
+              <%= link_to 'Dashboard', root_path %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Make lunch order', new_user_lunch_path %>
             </li>
             <% if current_user.is_admin %>
               <p class="navbar-text">Admin section: </p>
@@ -46,6 +49,11 @@
       </div>
     </div>
     <div class="container">
+      <% if flash[:notice] %>
+        <div class="alert alert-success"><%= flash[:notice] %></div>
+      <% elsif flash[:alert]%>
+        <div class="alert alert-warning"><%= flash[:alert] %></div>
+      <% end %>
       <%= yield %>
     </div>
   </body>

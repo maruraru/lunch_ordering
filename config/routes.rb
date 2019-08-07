@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get '/menu_items/autocomplete_menu_item_name', as: :autocomplete_menu_item_name
   delete '/menus/current/menu_items/:id', to: 'menu_items#destroy', as: :delete_menu_item
   post '/menus/current/menu_items', to: 'menu_items#create', as: :create_menu_item
+  get '/user_lunches/new', to: 'user_lunches#new', as: :new_user_lunch
+  post '/user_lunches', to: 'user_lunches#create', as: :create_user_lunch
 end

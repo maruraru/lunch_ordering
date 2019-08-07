@@ -1,4 +1,28 @@
 <h1>Dashboard</h1>
-<p>Something will appear soon...</p>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<% unless @menus.empty? %>
+  <% @menus.each do |day_menu, courses| %>
+    <h2>
+      <%= day_menu.date.strftime("%A, %d %b %Y") %>
+    </h2>
+    <% if courses %>
+      <% if day_menu.date == Date.today %>
+        <%= link_to 'Make order for today', new_user_lunch_path %>
+      <% end %>
+      <% courses.each do |course_name, course| %>
+        <h3>
+          <%= course_name.to_s.capitalize + ':' %>
+        </h3>
+        <% course.each do |dish| %>
+          <p>
+            <%= dish.name %>
+            <%= dish.price %>
+          </p>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>
+        This day's menu is empty. Perhaps the administrator will add a few dishes here later.
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

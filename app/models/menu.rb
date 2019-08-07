@@ -2,8 +2,26 @@ class Menu < ApplicationRecord
   has_many :menu_items
   accepts_nested_attributes_for :menu_items
 
+  validates :date, presence: true
+
+  def day_menu_dishes_hash
+    if menu_items.empty?
+      menus = nil
+    else
+      menus = {}
+      MenuItem::CATEGORIES.each do |course|
+        menus[course] = menu_items.where(category: course)
+      end
+    end
+    menus
+  end
+
   def self.all_days
-    Menu.select(:id, :date)
+    Menu.select(:id, :date).reverse
+  end
+
+  def self.last_days(number = 5)
+    Menu.order(date: :asc).limit(number).reverse
   end
 
   def self.day_menu(selected_day)
