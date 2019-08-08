@@ -17,7 +17,6 @@ class UserLunchesController < ApplicationController
         if permitted_params[category]
           @user_lunch = current_user.user_lunches.build(permitted_params[category])
           @user_lunch.save!
-          puts 'HERE AFTER SAVE!!!!!!!!!!!!!!!!!'
         else
           raise ActiveRecord::Rollback
         end
@@ -36,8 +35,7 @@ class UserLunchesController < ApplicationController
   end
 
   def user_already_make_order
-    lunches = UserLunch.where('created_at::date = ?', Menu.today_menu.date)
-    unless lunches.empty? and lunches.where(user: current_user.id).empty?
+    unless UserLunch.where('created_at::date = ?', Menu.today_menu.date).where(user: current_user.id).empty?
       redirect_to '/', alert: 'Today you have already made an order.'
     end
   end

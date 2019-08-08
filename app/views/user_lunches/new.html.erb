@@ -4,6 +4,7 @@
     <% @user_lunch.each_with_index do |category, index| %>
       <%= simple_fields_for category do |c| %>
         <%= c.input :menu_item, collection: @today_menu_courses[@dish_categories[index]],
+                    label: @dish_categories[index].humanize,
                     input_html: { name: 'user_lunch[' + @dish_categories[index] + '][dish_id]' }, as: :radio_buttons %>
       <% end %>
     <% end %>

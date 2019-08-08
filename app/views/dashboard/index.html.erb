@@ -1,11 +1,15 @@
 <h1>Dashboard</h1>
 <% unless @menus.empty? %>
   <% @menus.each do |day_menu, courses| %>
-    <h2>
-      <%= day_menu.date.strftime("%A, %d %b %Y") %>
-    </h2>
+    <div>
+      <h2>
+        <a data-toggle="collapse" data-target="#menu_<%= day_menu.id %>">+
+          <%= day_menu.date.strftime("%A, %d %b %Y") %>
+        </a>
+      </h2>
+    </div>
     <% if courses %>
-      <div class="col-md-12">
+      <div id="menu_<%= day_menu.id %>" class="col-md-12 collapse">
         <% if day_menu.date == Date.today %>
           <%= link_to 'Make order for today', new_user_lunch_path %>
         <% end %>

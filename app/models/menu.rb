@@ -4,6 +4,8 @@ class Menu < ApplicationRecord
 
   validates :date, presence: true
 
+  paginates_per 20
+
   def day_menu_dishes_hash
     if menu_items.empty?
       menus = nil
@@ -17,22 +19,23 @@ class Menu < ApplicationRecord
   end
 
   def day_lunches
-    sql = "Select users.user_name, menu_items.name, menu_items.category, menu_items.price
-                  FROM (select user_id, dish_id, created_at FROM user_lunches WHERE created_at::date = '#{date}') as first
+    sql = format("Select users.user_name, menu_items.name, menu_items.category, menu_items.price
+                  FROM (select user_id, dish_id, created_at FROM user_lunches WHERE created_at::date = '%s') as first
                   JOIN (select id, user_name from users) as users ON first.user_id = users.id
                   JOIN (select id, name, price, category from menu_items) as menu_items ON first.dish_id = menu_items.id
-                  ORDER BY first.created_at"
+                  ORDER BY first.created_at", date)
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def day_earnings
-    sql = "Select SUM(menu_items.price) as total FROM (SELECT dish_id FROM user_lunches WHERE created_at::date = '#{date}') as lunches
-                  JOIN (select id, price FROM menu_items) as menu_items ON lunches.dish_id = menu_items.id"
+  def day_lunches_cost
+    sql = format("Select SUM(menu_items.price) as total FROM
+                  (SELECT dish_id FROM user_lunches WHERE created_at::date = '%s') as lunches
+                  JOIN (select id, price FROM menu_items) as menu_items ON lunches.dish_id = menu_items.id", date)
     ActiveRecord::Base.connection.execute(sql)[0]['total']
   end
 
   def self.all_days
-    Menu.select(:id, :date).reverse
+    Menu.select(:id, :date)
   end
 
   def self.last_days(number = 5)

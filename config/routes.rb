@@ -13,4 +13,10 @@ Rails.application.routes.draw do
   post '/menus/current/menu_items', to: 'menu_items#create', as: :create_menu_item
   get '/user_lunches/new', to: 'user_lunches#new', as: :new_user_lunch
   post '/user_lunches', to: 'user_lunches#create', as: :create_user_lunch
+
+  namespace :api do
+    namespace :v1 do
+      get '/user_orders', to: 'user_orders#index'
+    end
+  end
 end

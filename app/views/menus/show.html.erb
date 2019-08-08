@@ -28,16 +28,17 @@
   <% end %>
   <div class="row">
     <div class="col-lg-12">
-      <% if @day_earnings %>
+      <% if @lunches_cost %>
         <h3>
           Total cost:
-          <%= @day_earnings %>
+          <%= @lunches_cost %>
         </h3>
       <% end %>
       <h3>Users orders:</h3>
     </div>
     <div class="col-lg-12">
       <% if @user_lunches %>
+        <%= paginate @user_lunches %>
         <table class="table table-sm">
           <thead class="thead-dark">
           <tr>

@@ -2,6 +2,8 @@ class MenuItem < ApplicationRecord
   has_many :user_lunches, foreign_key: 'dish_id'
   belongs_to :menu
 
+  paginates_per 20
+
   mount_uploader :photo, ImageUploader
 
   CATEGORIES = %w[first_dish main_dish drink].freeze

@@ -2,7 +2,7 @@ class MenusController < ApplicationController
   before_action :admin_only!
 
   def index
-    @all_days = Menu.all_days
+    @all_days = Menu.all_days.order(date: :desc).page params[:page]
   end
 
   def edit_current
@@ -26,8 +26,8 @@ class MenusController < ApplicationController
   def show
     @menu = Menu.find(params[:id])
     @dishes_hash = @menu.day_menu_dishes_hash
-    @user_lunches = @menu.day_lunches
-    @day_earnings = @menu.day_earnings
+    @user_lunches = Kaminari.paginate_array(@menu.day_lunches.to_a).page(params[:page]).per(20)
+    @lunches_cost = @menu.day_lunches_cost
   end
 
 end
