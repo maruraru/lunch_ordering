@@ -1,3 +1,5 @@
+addons:
+  chrome: stable
 deploy:
   provider: heroku
   app: 'lunchorderingsaas'
