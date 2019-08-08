@@ -69,7 +69,6 @@ group :test do
 end
 
 gem 'travis'
-
 gem 'devise'
 gem 'jquery-rails'
 gem 'rails-jquery-autocomplete'

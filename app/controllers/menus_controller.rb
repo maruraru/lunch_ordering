@@ -12,21 +12,17 @@ class MenusController < ApplicationController
     @dish_categories = MenuItem::CATEGORIES
   end
 
-  def create
-    menu = Menu.new(date: Date.today)
-    if menu.save
-      flash.now.notice = "Today's menu created successfully"
-      redirect_to current_menu_path
-    else
-      flash.now.alert = 'Creation failed'
-      redirect_to '/'
+  def add_last_week_items
+    if params[:load_last_week][:load]
+      Menu.today_menu.add_last_week_items
+      redirect_to current_menu_path, notice: 'Success'
     end
   end
 
   def show
     @menu = Menu.find(params[:id])
     @dishes_hash = @menu.day_menu_dishes_hash
-    @user_lunches = Kaminari.paginate_array(@menu.day_lunches.to_a).page(params[:page]).per(20)
+    @user_lunches = Kaminari.paginate_array(@menu.day_lunches.to_a).page(params[:page]).per(30)
     @lunches_cost = @menu.day_lunches_cost
   end
 

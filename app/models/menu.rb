@@ -34,12 +34,19 @@ class Menu < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)[0]['total']
   end
 
+  def add_last_week_items
+    last_weekday_menu = Menu.find_by(date: (Date.today - 1))
+    last_weekday_menu&.menu_items&.each do |item|
+      menu_items.create(name: item.name, category: item.category, price: item.price, photo: item.photo)
+    end
+  end
+  
   def self.all_days
     Menu.select(:id, :date)
   end
 
   def self.last_days(number = 5)
-    Menu.order(date: :asc).limit(number).reverse
+    Menu.order(date: :desc).limit(number)
   end
 
   def self.today_menu
