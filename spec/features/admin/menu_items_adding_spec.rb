@@ -40,4 +40,15 @@ RSpec.describe 'Menu items adding', type: :feature do
       expect(page).to have_text(@item.price)
     end
   end
+
+  context 'when add item from the day week ago' do
+    it 'adds menu items' do
+      item = FactoryBot.create(:menu_item, menu: FactoryBot.create(:menu, date: Time.zone.today - 7))
+      visit '/menus/edit_current'
+      click_on('Add all menu items from last ' + Time.zone.today.strftime('%A').downcase)
+      expect(page).to have_text(item.name)
+      expect(page).to have_text(item.category)
+      expect(page).to have_text(item.price)
+    end
+  end
 end
