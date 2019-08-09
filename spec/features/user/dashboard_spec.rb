@@ -5,7 +5,7 @@ RSpec.describe 'Dashboard', type: :feature do
 
   before :each do
     6.downto(0) do |i|
-      menu = FactoryBot.create(:menu, date: Date.today - i)
+      menu = FactoryBot.create(:menu, date: Time.zone.today - i)
       2.times do
         MenuItem::CATEGORIES.each do |category|
           FactoryBot.create(:menu_item, menu: menu, category: category)
@@ -19,7 +19,7 @@ RSpec.describe 'Dashboard', type: :feature do
       login_as(user1)
       visit '/'
       4.downto(0) do |i|
-        expect(page).to have_text((Date.today - i).strftime("%A, %d %b %Y"))
+        expect(page).to have_text((Time.zone.today - i).strftime('%A, %d %b %Y'))
       end
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe 'Dashboard', type: :feature do
     it 'displays menu' do
       login_as(user1)
       visit '/'
-      page.find('a', text: (Date.today).strftime("%A, %d %b %Y")).click
+      page.find('a', text: Time.zone.today.strftime('%A, %d %b %Y')).click
       expect(page).to have_text('First dish')
       expect(page).to have_text('Main dish')
       expect(page).to have_text('Drink')

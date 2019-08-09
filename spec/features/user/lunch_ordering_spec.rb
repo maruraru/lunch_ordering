@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Lunch order creation', type: :feature do
   before :each do
-    menu = FactoryBot.create(:menu, date: Date.today)
+    menu = FactoryBot.create(:menu, date: Time.zone.today)
     user1 = FactoryBot.create(:user)
     2.times do
       MenuItem::CATEGORIES.each do |category|

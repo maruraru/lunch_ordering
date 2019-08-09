@@ -5,7 +5,7 @@ FactoryBot.define do
     name { Faker::Food.dish }
     category { MenuItem::CATEGORIES[Random.rand(3)] }
     price { Faker::Number.decimal }
-    photo { "" }
+    photo { '' }
     association :menu
   end
 end

@@ -22,7 +22,7 @@ class UserLunchesController < ApplicationController
         end
       end
     end
-  rescue
+  rescue StandardError
     redirect_to new_user_lunch_path, alert: 'Order creation failed'
   else
     redirect_to '/', notice: 'Order created successfully'
@@ -35,8 +35,7 @@ class UserLunchesController < ApplicationController
   end
 
   def user_already_make_order
-    unless UserLunch.where('created_at::date = ?', Menu.today_menu.date).where(user: current_user.id).empty?
-      redirect_to '/', alert: 'Today you have already made an order.'
-    end
+    redirect_to '/', alert: 'Today you have already made an order.' unless
+        UserLunch.where('created_at::date = ?', Menu.today_menu.date).where(user: current_user.id).empty?
   end
 end

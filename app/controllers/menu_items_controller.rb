@@ -1,6 +1,6 @@
 class MenuItemsController < ApplicationController
   autocomplete :menu_item, :name, limit: 4,
-               extra_data: [:name, :category, :photo, :price]
+                                  extra_data: %i[name category photo price]
 
   before_action :curr_menu, only: %i[create destroy]
   before_action :admin_only!
@@ -22,7 +22,7 @@ class MenuItemsController < ApplicationController
   def destroy
     menu_item = @menu.menu_items.find(params[:id])
     menu_item.destroy
-    redirect_to current_menu_path
+    redirect_to current_menu_path, notice: 'Deletes successfully'
   end
 
   private

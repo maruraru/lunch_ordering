@@ -13,7 +13,7 @@
 <h1>Add item to menu</h1>
 <%= simple_form_for :load_last_week, url: add_last_week_items_path do |f| %>
   <%= f.input :load, :as => :hidden, :input_html => { value: true }  %>
-  <%= f.submit "Add all menu items from last #{Date.today.strftime('%A').downcase}" %>
+  <%= f.submit "Add all menu items from last #{Time.zone.today.strftime('%A').downcase}" %>
 <% end %>
 <h3>Search among recent menu items:</h3>
 <%= form_for @existed_menu_items ? @menu_item : @existed_menu_items, url: autocomplete_menu_item_name_path  do |f| %>
