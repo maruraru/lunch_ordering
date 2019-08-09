@@ -14,8 +14,11 @@ class MenusController < ApplicationController
 
   def add_last_week_items
     if params[:load_last_week][:load]
-      Menu.today_menu.add_last_week_items
-      redirect_to current_menu_path, notice: 'Success'
+      if Menu.today_menu.add_last_week_items
+        redirect_to current_menu_path, notice: 'Success'
+      else
+        redirect_to current_menu_path, alert: 'Empty'
+      end
     end
   end
 

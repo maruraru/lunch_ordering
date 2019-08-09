@@ -35,9 +35,13 @@ class Menu < ApplicationRecord
   end
 
   def add_last_week_items
-    last_weekday_menu = Menu.find_by(date: (Date.today - 1))
-    last_weekday_menu&.menu_items&.each do |item|
+    last_weekday_menu = Menu.find_by(date: (Date.today - 6))
+    if last_weekday_menu&.menu_items
+      last_weekday_menu&.menu_items&.each do |item|
       menu_items.create(name: item.name, category: item.category, price: item.price, photo: item.photo)
+      end
+    else
+      nil
     end
   end
   
