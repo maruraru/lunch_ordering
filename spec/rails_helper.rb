@@ -130,5 +130,4 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
-Capybara.javascript_driver = :headless_chrome
-Capybara.default_driver = :headless_chrome
+Capybara.javascript_driver = :chrome
