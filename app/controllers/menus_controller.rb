@@ -28,5 +28,4 @@ class MenusController < ApplicationController
     @user_lunches = Kaminari.paginate_array(@menu.day_lunches.to_a).page(params[:page]).per(30)
     @lunches_cost = @menu.day_lunches_cost
   end
-
 end

@@ -1,0 +1,13 @@
+require: rubocop-rails
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 190
+
+Metrics/MethodLength:
+  Max: 35
+
+Style/Documentation:
+  Enabled: false

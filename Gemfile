@@ -45,6 +45,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   # Fake data for tests
   gem 'faker'
+  gem "rails_best_practices"
+  gem 'rubocop-rails'
 end
 
 group :development do

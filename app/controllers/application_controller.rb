@@ -14,8 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_only!
-    unless User.find(current_user.id)&.is_admin
-      render file: 'public/403.html', status: 403
-    end
+    render file: 'public/403.html', status: 403 unless User.find(current_user.id)&.is_admin
   end
 end

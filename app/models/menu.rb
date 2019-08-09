@@ -44,7 +44,7 @@ class Menu < ApplicationRecord
       nil
     end
   end
-  
+
   def self.all_days
     Menu.select(:id, :date)
   end
