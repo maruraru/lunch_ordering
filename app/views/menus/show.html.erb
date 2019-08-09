@@ -1,0 +1,76 @@
+<% if @menu %>
+  <div>
+    <h2>
+      <%= @menu.date.strftime("%A, %d %b %Y") %>
+    </h2>
+  </div>
+  <% if @dishes_hash %>
+    <% @dishes_hash.each do |course_name, dishes| %>
+        <div class="col-lg-4">
+          <h3>
+            <%= course_name.to_s.capitalize + ':' %>
+          </h3>
+          <% dishes.each do |dish| %>
+            <div class="row">
+              <div class="col">
+                <%= dish.name.to_s + ', ' + dish.price.to_s %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    <% end %>
+  <% else %>
+    <div>
+      <p>
+        This day's menu is empty
+      </p>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-12">
+      <% if @lunches_cost %>
+        <h3>
+          Total cost:
+          <%= @lunches_cost %>
+        </h3>
+      <% end %>
+      <h3>Users orders:</h3>
+    </div>
+    <div class="col-lg-12">
+      <% if @user_lunches %>
+        <%= paginate @user_lunches %>
+        <table class="table table-sm">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">Users name</th>
+            <th scope="col">Dish</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @user_lunches.each do |lunch| %>
+            <tr>
+              <th>
+                <%= lunch['user_name'] %>
+              </th>
+              <th>
+                <%= lunch['name'] %>
+              </th>
+              <th>
+                <%= lunch['category'] %>
+              </th>
+              <th>
+                <%= lunch['price'] %>
+              </th>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+
+<% else %>
+  <span>Still empty...</span>
+<% end %>

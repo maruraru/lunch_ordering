@@ -1,0 +1,17 @@
+<% if @today_menu_courses %>
+  <h2>Make your order for today</h2>
+  <%= simple_form_for(@user_lunch, url: create_user_lunch_path, method: :post) do |f| %>
+    <% @user_lunch.each_with_index do |category, index| %>
+      <%= simple_fields_for category do |c| %>
+        <%= c.input :menu_item, collection: @today_menu_courses[@dish_categories[index]],
+                    label: @dish_categories[index].humanize,
+                    input_html: { name: 'user_lunch[' + @dish_categories[index] + '][dish_id]' }, as: :radio_buttons %>
+      <% end %>
+    <% end %>
+    <%= f.button :submit, 'Submit' %>
+  <% end %>
+<% else %>
+  <p>
+    This day's menu is still empty. Please wait while the administrator will add today's dishes.
+  </p>
+<% end %>

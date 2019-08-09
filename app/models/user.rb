@@ -11,6 +11,10 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
                     presence: true, length: { maximum: 50 }
 
+  acts_as_token_authenticatable
+
+  paginates_per 20
+
   private
 
   def check_to_make_admin

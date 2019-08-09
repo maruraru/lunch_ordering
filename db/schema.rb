@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_073401) do
+ActiveRecord::Schema.define(version: 2019_08_08_124404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_073401) do
   create_table "menu_items", force: :cascade do |t|
     t.string "name", null: false
     t.string "category", null: false
-    t.float "price", null: false
+    t.decimal "price", precision: 20, scale: 2, null: false
     t.string "photo"
     t.bigint "menu_id"
     t.datetime "created_at", null: false
@@ -36,14 +36,10 @@ ActiveRecord::Schema.define(version: 2019_08_05_073401) do
 
   create_table "user_lunches", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "first_dish_id", null: false
-    t.bigint "main_dish_id", null: false
-    t.bigint "drink_id", null: false
+    t.bigint "dish_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["drink_id"], name: "index_user_lunches_on_drink_id"
-    t.index ["first_dish_id"], name: "index_user_lunches_on_first_dish_id"
-    t.index ["main_dish_id"], name: "index_user_lunches_on_main_dish_id"
+    t.index ["dish_id"], name: "index_user_lunches_on_dish_id"
     t.index ["user_id"], name: "index_user_lunches_on_user_id"
   end
 
@@ -57,6 +53,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_073401) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "authentication_token", limit: 30
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -3,13 +3,19 @@ class MenuItemsController < ApplicationController
                extra_data: [:name, :category, :photo, :price]
 
   before_action :curr_menu, only: %i[create destroy]
+  before_action :admin_only!
 
   def create
-    menu_item = @menu.menu_items.build(menu_item_params)
-    if menu_item.save
+    @menu_item = @menu.menu_items.build(menu_item_params)
+    if @menu_item.save
+      flash.now.notice = 'Saved'
       redirect_to current_menu_path, notice: 'Saved'
     else
-      redirect_to current_menu_path, notice: 'Creation failed'
+      @day_menu = Menu.today_menu
+      @existed_menu_items = MenuItem.recent_items
+      @dish_categories = MenuItem::CATEGORIES
+      flash.now.alert = 'Creation failed'
+      render 'menus/edit_current'
     end
   end
 

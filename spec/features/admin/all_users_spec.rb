@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'AdminFeatures', type: :feature do
+RSpec.describe 'Show all users', type: :feature do
   let(:user1) { FactoryBot.create(:user) }
 
   context 'when admin go to all users page' do

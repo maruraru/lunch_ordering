@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :admin_only!, only: :index
 
   def index
-    @users = User.all
+    @users = User.order(:user_name).page params[:page]
   end
 
   def show

@@ -1,35 +1,29 @@
 class MenusController < ApplicationController
+  before_action :admin_only!
 
   def index
-    @all_days = Menu.all_days
+    @all_days = Menu.all_days.order(date: :desc).page params[:page]
   end
 
   def edit_current
     @day_menu = Menu.today_menu
+    @menu_item = @day_menu.menu_items.build
     @existed_menu_items = MenuItem.recent_items
+    @dish_categories = MenuItem::CATEGORIES
   end
 
-  def new
-    @menu = Menu.new
-  end
-
-  def create
-    menu = Menu.new(date: Date.today)
-    if menu.save
-      redirect_to current_menu_path, notice: 'Saved'
-    else
-      redirect_to '/', notice: 'Creation failed'
+  def add_last_week_items
+    if params[:load_last_week][:load]
+      Menu.today_menu.add_last_week_items
+      redirect_to current_menu_path, notice: 'Success'
     end
   end
 
   def show
-
-  end
-
-  private
-
-  def menu_params
-    params.require(:menu).permit(menu_items_attributes: [:name, :category, :photo, :price])
+    @menu = Menu.find(params[:id])
+    @dishes_hash = @menu.day_menu_dishes_hash
+    @user_lunches = Kaminari.paginate_array(@menu.day_lunches.to_a).page(params[:page]).per(30)
+    @lunches_cost = @menu.day_lunches_cost
   end
 
 end
