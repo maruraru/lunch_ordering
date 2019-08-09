@@ -1,5 +1,10 @@
 require: rubocop-rails
 
+AllCops:
+  Exclude:
+    - "config/initializers/*"
+    - "bin/*"
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -8,6 +13,9 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 35
+
+Metrics/BlockLength:
+  Max: 40
 
 Style/Documentation:
   Enabled: false

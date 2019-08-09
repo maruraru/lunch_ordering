@@ -22,7 +22,7 @@ class UserLunchesController < ApplicationController
         end
       end
     end
-  rescue
+  rescue StandardError
     redirect_to new_user_lunch_path, alert: 'Order creation failed'
   else
     redirect_to '/', notice: 'Order created successfully'

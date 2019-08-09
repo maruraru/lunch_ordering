@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :menu do
-    date { Date.today }
+    date { Time.zone.today }
   end
 end

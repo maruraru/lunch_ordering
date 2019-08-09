@@ -1,6 +1,6 @@
 class UserLunch < ApplicationRecord
   belongs_to :user
-  belongs_to :menu_item, foreign_key: 'dish_id'
+  belongs_to :menu_item, foreign_key: 'dish_id', inverse_of: :user_lunches
 
-  validates_presence_of :menu_item, :user
+  validates :menu_item, :user, presence: true
 end

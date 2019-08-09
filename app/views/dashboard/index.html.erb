@@ -10,7 +10,7 @@
     </div>
     <% if courses %>
       <div id="menu_<%= day_menu.id %>" class="col-md-12 collapse">
-        <% if day_menu.date == Date.today %>
+        <% if day_menu.date == Time.zone.today %>
           <%= link_to 'Make order for today', new_user_lunch_path %>
         <% end %>
         <% courses.each do |course_name, course| %>

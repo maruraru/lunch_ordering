@@ -1,5 +1,5 @@
 class MenuItem < ApplicationRecord
-  has_many :user_lunches, foreign_key: 'dish_id'
+  has_many :user_lunches, foreign_key: 'dish_id', dependent: :destroy, inverse_of: :menu_item
   belongs_to :menu
 
   paginates_per 20

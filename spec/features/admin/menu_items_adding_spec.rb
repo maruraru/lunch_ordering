@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Menu items adding', type: :feature do
   before :each do
-    FactoryBot.create(:menu, date: Date.today)
+    FactoryBot.create(:menu, date: Time.zone.today)
     login_as(FactoryBot.create(:user))
     visit '/menus/edit_current'
   end
@@ -27,7 +27,7 @@ RSpec.describe 'Menu items adding', type: :feature do
 
   context 'when search existed item' do
     before do
-      @item = FactoryBot.create(:menu_item, menu: FactoryBot.create(:menu, date: Date.today - 1))
+      @item = FactoryBot.create(:menu_item, menu: FactoryBot.create(:menu, date: Time.zone.today - 1))
       visit '/menus/edit_current'
     end
     it 'suggests item name' do

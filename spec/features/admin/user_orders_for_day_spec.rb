@@ -28,7 +28,7 @@ RSpec.describe "User's orders on day page", type: :feature do
         expect(page).to have_text(value)
       end
     end
-    
+
     it 'display total day lunches cost' do
       expect(page).to have_text('Total cost: ' + @total_price.to_s)
     end
