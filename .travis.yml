@@ -11,6 +11,8 @@ rvm:
   - 2.6.3
 before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+before_script:
+  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
 script:
   - bundle exec rake assets:precompile
   - sudo service postgresql start
